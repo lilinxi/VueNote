@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+    <style>
+        .active {
+            color: red;
+        }
+
+        .unactive {
+            color: green;
+        }
+
+        .class-a {
+            margin-top: 20px;
+        }
+
+        .class-b {
+            color: #f39;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>Class绑定</h2>
+
+    <div :class="{'active':active,'unactive':!active}">{{active}}</div>
+    <div :class="[classA,classB]">class-a class-b</div>
+    <div :class="[classA,isB?classB:'']">class-a class-b</div>
+
+    <h2>内联样式绑定</h2>
+
+    <div :style="alertStyle">对象语法</div>
+    <div :style="{fontSize: alertStyle.fontSize, color: 'green'}">对象语法</div>
+    <div :style="[styleObjectA,styleObjectB]">数组语法</div>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            active: true,
+            classA: 'class-a',
+            classB: 'class-b',
+            isB: false,
+
+            alertStyle: {
+                color: 'red',
+                fontSize: '20px'
+            },
+            styleObjectA: {
+                color: 'blue',
+            },
+            styleObjectB: {
+                fontSize: '20px'
+            }
+        },
+    });
+</script>
+</body>
+</html>

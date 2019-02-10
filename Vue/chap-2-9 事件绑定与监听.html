@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>方法及内联语句处理器</h1>
+    <button @click="say">Say</button>
+    <button @click="sayFrom('form param')">Say form param</button>
+    <button @click="showEvent">Event</button>
+    <button @click="showEvent($event)">showEvent</button>
+    <button @click="showEvent()">showEvent</button>
+    <!-- 这样写获取不到event，以上两种都能获取到 event -->
+    <!-- vue2 不支持绑定多个事件  -->
+    <!-- <div @click="sayFrom('first')" @click="sayFrom('second')">multiClick</div> -->
+
+    <h1>修饰符</h1>
+    <!-- 阻止单击事件冒泡 -->
+    <button v-on:click.stop="doThis">v-on:click.stop:阻止单击事件冒泡</button>
+    <!-- 提交事件不再重载页面 -->
+    <form v-on:submit.prevent="onSubmit">v-on:submit.prevent:提交事件不再重载页面</form>
+    <!-- 修饰符可以串联  -->
+    <button v-on:click.stop.prevent="doThat">v-on:click.stop.prevent：修饰符可以串联</button>
+    <!-- 只有修饰符 -->
+    <form v-on:submit.prevent>v-on:submit.prevent:只有修饰符</form>
+    <!-- 添加事件侦听器时使用事件捕获模式 -->
+    <button v-on:click.capture="doThis">v-on:click.capture：添加事件侦听器时使用事件捕获模式</button>
+    <!-- 只当事件在该元素本身（比如不是子元素）触发时触发回调 -->
+    <button v-on:click.self="doThat">v-on:click.self:只当事件在该元素本身（比如不是子元素）触发时触发回调</button>
+    <!--事件捕获和事件冒泡参见连接：https://segmentfault.com/q/1010000005875549?_ea=954179-->
+    <!--事件捕获，事件冒泡和事件委托参见连接：https://www.cnblogs.com/Chen-XiaoJun/p/6210987.html-->
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hello Vue.js'
+        },
+        methods: {
+            say: function () {
+                alert(this.msg);
+            },
+            sayFrom: function (from) {
+                alert(this.msg + ' ' + from);
+            },
+            showEvent: function (e) {
+                console.log(e);
+            },
+            doThis:function() {
+                console.log('doThis');
+            },
+            onSubmit() {
+                console.log('onSubmit')
+            },
+            doThat() {
+                console.log('doThat')
+            },
+            saySelf(msg) {
+                alert(msg);
+            }
+        }
+    });
+</script>
+</body>
+</html>

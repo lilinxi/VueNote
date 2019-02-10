@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!-- 文本 -->
+    <span>Hello {{ name }}</span><br/>
+
+    <!-- 单次插值，只初始化一次，首次赋值后更改实例的属性值不会引起 DOM 的变化 -->
+    <span v-once="name">Hello {{ name }}</span><br/>
+
+    <!-- 属性 -->
+    <div v-bind:id="'id-' + id">属性id全写</div>
+    <div :id="'id-' + id">属性id简写</div>
+
+    <!-- 绑定表达式 -->
+    <div>{{ index + 1 }}</div>
+    <div>{{ index == 0 ? 'a' : 'b' }}</div>
+    <div>{{ name.split('').join('|') }}</div>
+
+    <!--过滤器-->
+    <!--以下代码动态渲染了一个列表，同时设计了搜索框，实现了动态过滤效果-->
+    <span>SearchByName: </span><br>
+    <input v-model="searchQuery">
+    <table>
+        <thead>
+        <tr>
+            <td v-for="col in columns">{{col|capitalize}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="entry in filteredData">
+            <td v-for="col in columns">{{entry[col]}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: 1,
+            index: 0,
+            name: 'Vue',
+            imgSrc:'',
+
+            searchQuery: '',
+            columns: ['name', 'gender', 'age'],
+            data: [{
+                name: 'Jack',
+                gender: 'male',
+                age: 26
+            }, {
+                name: 'John',
+                gender: 'female',
+                age: 20
+            }, {
+                name: 'Lucy',
+                gender: 'female',
+                age: 16
+            }]
+        },
+        filters: {
+            capitalize: function (value) {
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        },
+        computed: {
+            filteredData: function () {
+                var self = this;
+                return this.data.filter(function (item) {
+                    return item.name.toLowerCase().indexOf(self.searchQuery.toLowerCase()) !== -1;
+                })
+            }
+        },
+        method:{
+            doClick:function () {
+                alert('do click');
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <comp-a></comp-a>
+    <comp-b></comp-b>
+</div>
+
+<script type="text/javascript">
+    let bus = new Vue();
+    // 使用一个空组件，emit 触发，on 监听，off 取消监听。
+
+    let vm = new Vue({
+        el: "#app",
+        components: {
+            compA: {
+                template: '<div>\
+                <input type="text" v-model="name">\
+                <button @click="create">添加</button>\
+                </div>',
+                data: function () {
+                    return {
+                        name: ""
+                    }
+                },
+                methods: {
+                    create: function () {
+                        bus.$emit('create', {name: this.name});
+                        this.name = '';
+                    }
+                }
+            },
+            compB: {
+                template: "<ul>\
+                <li v-for='item in items'>{{item.name}}</li>\
+                </ul>",
+                data: function () {
+                    return {
+                        items: []
+                    }
+                },
+                mounted() {
+                    let that = this;
+                    bus.$on('create', function (data) {
+                        that.items.push(data);
+                    })
+                }
+            },
+        }
+    })
+</script>
+</body>
+</html>

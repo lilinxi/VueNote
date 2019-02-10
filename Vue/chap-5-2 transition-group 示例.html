@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+    <style>
+        .list-li {
+            width: 100px;
+            height: 20px;
+            transform: translate(0, 0);
+        }
+
+        .list-enter, .list-leave-active {
+            opacity: 0;
+            transform: translate(-30px, 0);
+        }
+
+        .list-enter-active, .list-leave-active {
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    transition-group 和 transition 不同，transition-group 不是一个虚拟的 DOM，默认为 span
+    标签，可以通过
+    tag 属性来设定。
+    <transition-group tag="ul" name="list" appear>
+        <li v-for="item in items" :key="item.id" class="list-li">
+            {{item.text}}
+        </li>
+    </transition-group>
+</div>
+vm.items.splice(2,1,{id:5,text:'55'})
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            items: [
+                {id: 1, text: '11'},
+                {id: 2, text: '22'},
+                {id: 3, text: '33'},
+                {id: 4, text: '44'}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

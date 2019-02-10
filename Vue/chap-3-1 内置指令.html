@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>v-bind</h1>
+    <h2>v-bind.camel，将绑定的特性名字转回驼峰命名，通常用户 svg 标签</h2>
+    <svg :view-box.camel="viewBox"></svg>
+    等同于
+    <svg viewBox=""></svg>
+    <h2>简写为‘：’</h2>
+    <h2>v-once</h2>
+
+    <h1>v-model</h1>
+    <h1>v-if/v-else/v-show</h1>
+    <h1>v-on</h1>
+    <h2>简写为‘@’</h2>
+    <h1>v-text</h1>
+    <p v-text="msg"></p>
+    <p>{{msg}}</p><!--在 beforeCompile 阶段会有‘{{msg}}’闪现。-->
+    更新元素的 textContent，需要绑定在某个元素上，但是可以避免编译前的闪现问题。
+    <h1>v-HTML</h1>
+    更新元素的 innerHTML，可以避免编译前的闪现问题。
+
+    <h1>v-pre</h1>
+    跳过编译这个元素和子元素。
+    <p v-pre>{{msg}}</p>
+
+</div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            viewBox: undefined,
+            msg: 'this is a message',
+        }
+    })
+</script>
+</body>
+</html>

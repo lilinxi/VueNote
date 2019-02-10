@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-component></my-component>
+    <my-parent></my-parent>
+
+    <my-component2></my-component2>
+    <my-parent2></my-parent2>
+</div>
+
+<script type="text/javascript">
+    // 全局注册
+    let MyComponent = Vue.extend({
+        template: '<p>This is a component</p>'
+    });
+
+    Vue.component('my-component', MyComponent);
+
+    // 局部注册
+    let Child = Vue.extend({
+        template: '<p>This is a child component</p>'
+    });
+
+    let Parent = Vue.extend({
+        template: '<div>\
+        <p>This is a parent component</p>\
+        <my-child></my-child>\
+        </div>',
+        components: { //注意加 s
+            'my-child': Child
+        }
+    });
+
+    Vue.component('my-parent', Parent);
+
+    // 简化方式
+    // 全局注册
+    Vue.component('my-component2',
+        {
+            template: '<p>This is a component</p>'
+        });
+    // 局部注册
+    Vue.component('my-parent2',
+        {
+            template: '<div>\
+        <p>This is a parent component</p>\
+        <my-child2></my-child2>\
+        </div>',
+            components: { //注意加 s
+                'my-child2': {
+                    template: '<p>This is a child component</p>'
+                }
+            }
+        });
+
+    let vm = new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>

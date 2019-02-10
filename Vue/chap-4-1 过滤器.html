@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{date|dateFilter}}
+</div>
+
+<script type="text/javascript">
+    Vue.filter('dateFilter',
+        function (value) {
+            if (!value instanceof Date) {
+                return value;
+            }
+            return value.toLocaleDateString();
+        });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            date: new Date()
+        }
+    });
+</script>
+</body>
+</html>

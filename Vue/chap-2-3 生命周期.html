@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: "This is a message"
+        },
+        // 尚未完成数据和事件的绑定
+        beforeCreate: function () {
+            console.group('beforeCreate 创建前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message)
+        },
+        // 已完成数据和事件的绑定，但是尚未挂在到 DOM 上，尚未初始化 el
+        created: function () {
+            console.group('created 创建完毕状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        // 初始化 el
+        beforeMount: function () {
+            console.group('beforeMount 挂载前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + (this.$el)); //已被初始化
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        // 完成挂载
+        mounted: function () {
+            console.group('mounted 挂载结束状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //已被初始化
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+            this.message = 'new message';
+        },
+        // 实例被更新（e.g. data），但尚未更新 DOM
+        beforeUpdate: function () {
+            console.group('beforeUpdate 更新前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        // 更新完 DOM 后
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+            this.$destroy();
+        },
+        // 销毁前，此时实例仍然有效
+        beforeDestroy: function () {
+            console.group('beforeDestroy 销毁前状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        // 所有绑定和子实例都被销毁
+        destroyed: function () {
+            console.group('destroyed 销毁完成状态===============》');
+            console.log("%c%s", "color:red", "el     : " + this.$el);
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "data   : " + this.$data);
+            console.log("%c%s", "color:red", "message: " + this.message)
+        }
+    })
+</script>
+</body>
+</html>

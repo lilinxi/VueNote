@@ -1,0 +1,106 @@
+<!--前后端渲染的对比-->
+<!--前段渲染的优点：1）业务分类，2）计算量转移-->
+<!--后端渲染的优点：1）对搜索引擎友好，2）首页加载时间短-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h1>条件渲染</h1>
+    <h2>v-if/v-else</h2>
+    <div v-if="yes">
+        <div v-if="inner">inner</div>
+        <div v-else>not inner</div>
+    </div>
+    <div v-else>no</div>
+
+    <h2>v-show</h2>
+    <div v-show="show">show</div>
+    <div v-else>hidden</div>
+
+    <!--v-if 引起了 DOM 级别的变化，但是 v-show 只是改变了 display-->
+
+    <h2>template标签用法</h2>
+    <!-- template 提供的指令作用的根节点，最后 DOM 的根节点并没有 -->
+    <template v-if="yes">
+        <p>There is first dom</p>
+        <p>There is second dom</p>
+        <p>There is third dom</p>
+    </template>
+    <template v-for="item in items">
+        <h3>{{item.title}}</h3>
+        <p>{{item.description}}</p>
+    </template>
+
+    <h1>列表渲染</h1>
+    <h2>v-for 指令</h2>
+    <ul>
+        <li v-for="item in items">
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
+        </li>
+    </ul>
+</div>
+<h2>index</h2>
+<ul id="example-2">
+    <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+</ul>
+<h2>index key value</h2>
+<div id="example-3">
+    <div v-for="(value, key, index) in object">
+        {{ index }}. {{ key }} : {{ value }}
+    </div>
+
+    <h2>range</h2>
+    <ul>
+        <li v-for="n in 10">{{n}}</li>
+    </ul>
+</div>
+
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            yes: true,
+            inner: false,
+            show: true,
+            items: [
+                {title: 'title-1', description: 'description-1'},
+                {title: 'title-2', description: 'description-2'},
+                {title: 'title-3', description: 'description-3'},
+                {title: 'title-4', description: 'description-4'}
+            ]
+        },
+    });
+
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                {message: 'Foo'},
+                {message: 'Bar'}
+            ]
+        }
+    })
+
+    var example3 = new Vue({
+        el: '#example-3',
+        data: {
+            object: {
+                a: 'a-value',
+                b: 'b-value',
+                c: 'c-value'
+            }
+        }
+    });
+</script>
+</body>
+</html>

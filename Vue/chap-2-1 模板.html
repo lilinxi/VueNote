@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>123</p>
+</div>
+<script id="tpl" type="x-template">
+    <div class="tpl-cls">
+        <p>This is a tpl from script tag</p>
+    </div>
+</script>
+<!--默认会将 template 值替换挂载元素，合并挂载元素和模板根节点的属性，唯一属性以模板根节点为准，模板只能有一个根元素-->
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        template: '#tpl'
+    })
+</script>
+</body>
+</html>

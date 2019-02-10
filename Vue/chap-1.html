@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{message}}
+    <message content="hello world"></message>
+</div>
+<script type="text/javascript">
+    var Message=Vue.extend({
+        props:['content'],
+        template:'<h1>{{content}}</h1>'
+    })
+    Vue.component('message',Message)
+    var vm=new Vue({
+        el:'#app',
+        data:{
+            message: 'Hello world, I am Vue.js'
+        }
+    })
+</script>
+</body>
+</html>

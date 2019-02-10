@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div v-my-msg="content">11111</div>
+</div>
+
+<script>
+    // 全局注册
+    var comp = Vue.directive('my-msg', {
+        bind: function (el, binding, vnode) {
+            var s = JSON.stringify
+            el.innerHTML =
+                'el: ' + el + '<br>' +//指令绑定的元素
+                'binding: ' + s(binding) + '<br>' +
+                'name: ' + s(binding.name) + '<br>' +//指令的名字
+                'value: ' + s(binding.value) + '<br>' +//指令绑定的数据的值
+                'expression: ' + s(binding.expression) + '<br>' +//指令的表达式
+                'argument: ' + s(binding.arg) + '<br>' +//指令的参数
+                'modifiers: ' + s(binding.modifiers) + '<br>' +//指令的修饰符
+                'vnode keys: ' + Object.keys(vnode).join(', ');
+
+            console.log('el', el);
+        },
+        update: function (newValue, oldValue) {
+            var keys = Object.keys(this.modifiers);
+            window[this.arg][keys[0]](newValue)
+        },
+        unbind: function () {
+
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            content: 'there is the content',
+        }
+    });
+</script>
+</body>
+</html>

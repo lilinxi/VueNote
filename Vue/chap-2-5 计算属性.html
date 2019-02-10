@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>{{firstName}}</p>
+    <p>{{lastName}}</p>
+    <p>{{fullName}}</p>
+
+    <p>&yen;{{price}}</p>
+    <!--console-->
+    <!--vm.price=2.43-->
+    <!--vm.cents-->
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'Gavin',
+            lastName: 'CLY',
+            cents: 100,
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName;
+            },
+            price: {
+                set: function (newValue) {
+                    this.cents = newValue * 100;
+                },
+                get: function () {
+                    return (this.cents / 100).toFixed(2);
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

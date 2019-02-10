@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="Vue-v2.5.22.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-component title="my-title" content="my-content"></my-component>
+</div>
+<script type="text/javascript">
+    // template 的 data 必须为一个函数，data 与 props 不能重名，且其返回值不是原始对象，否则多个组件实例会绑定同一个对象
+    var MyComponent = Vue.component('my-component', {
+        props: ['title', 'content'],
+        data: function () {
+            return {
+                desc: '123'
+            }
+        },
+        template: '<div>\
+        <h1>{{title}}</h1>\
+        <p>{{content}}</p>\
+        <p>{{desc}}</p>\
+        <div>'
+    })
+    var vm = new Vue({
+        el: '#app'
+    })
+</script>
+</body>
+</html>
